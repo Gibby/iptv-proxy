@@ -97,6 +97,7 @@ jobs:
       -
         name: push README to Dockerhub
         uses: christian-korneck/update-container-description-action@v1
+        if: github.event_name != 'pull_request'
         env:
           DOCKER_USER: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKER_PASS: ${{ secrets.DOCKERHUB_PASSWORD }}
