@@ -102,7 +102,7 @@ jobs:
           DOCKER_USER: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKER_PASS: ${{ secrets.DOCKERHUB_PASSWORD }}
         with:
-          destination_container_repo: ${{ github.repository }}
+          destination_container_repo: ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}
           provider: dockerhub
           short_description: 'Iptv-Proxy is a project to proxyfie an m3u file and to proxyfie an Xtream iptv service (client API).'
           readme_file: 'README.md'
