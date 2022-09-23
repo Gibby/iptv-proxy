@@ -67,42 +67,42 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      -
-        name: Build and push ghcr
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          # Due to build time, only building the one currently needed.
-          # If needed, we can add more platforms when requested.
-          platforms: linux/amd64,linux/arm64
-          # Do not push pull requests
-          #push: ${{ github.event_name != 'pull_request' }}
-          # Push pull requests so they can be tested
-          push: true
-          tags: ${{ steps.meta-ghcr.outputs.tags }}
-          labels: ${{ steps.meta-ghcr.outputs.labels }}
-      -
-        name: Build and push DockerHub
-        uses: docker/build-push-action@v3
-        if: github.event_name != 'pull_request'
-        with:
-          context: .
-          # Due to build time, only building the one currently needed.
-          # If needed, we can add more platforms when requested.
-          platforms: linux/amd64,linux/arm64
-          # Do not push pull requests
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta-dockerhub.outputs.tags }}
-          labels: ${{ steps.meta-dockerhub.outputs.labels }}
+#      -
+#        name: Build and push ghcr
+#        uses: docker/build-push-action@v3
+#        with:
+#          context: .
+#          # Due to build time, only building the one currently needed.
+#          # If needed, we can add more platforms when requested.
+#          platforms: linux/amd64,linux/arm64
+#          # Do not push pull requests
+#          #push: ${{ github.event_name != 'pull_request' }}
+#          # Push pull requests so they can be tested
+#          push: true
+#          tags: ${{ steps.meta-ghcr.outputs.tags }}
+#          labels: ${{ steps.meta-ghcr.outputs.labels }}
+#      -
+#        name: Build and push DockerHub
+#        uses: docker/build-push-action@v3
+#        if: github.event_name != 'pull_request'
+#        with:
+#          context: .
+#          # Due to build time, only building the one currently needed.
+#          # If needed, we can add more platforms when requested.
+#          platforms: linux/amd64,linux/arm64
+#          # Do not push pull requests
+#          push: ${{ github.event_name != 'pull_request' }}
+#          tags: ${{ steps.meta-dockerhub.outputs.tags }}
+#          labels: ${{ steps.meta-dockerhub.outputs.labels }}
       -
         name: push README to Dockerhub
         uses: christian-korneck/update-container-description-action@v1
-        if: github.event_name != 'pull_request'
+        #if: github.event_name != 'pull_request'
         env:
           DOCKER_USER: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKER_PASS: ${{ secrets.DOCKERHUB_PASSWORD }}
         with:
-          destination_container_repo: ${{ github.repository }}
+          destination_container_repo: ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}
           provider: dockerhub
           short_description: 'Iptv-Proxy is a project to proxyfie an m3u file and to proxyfie an Xtream iptv service (client API).'
           readme_file: 'README.md'
