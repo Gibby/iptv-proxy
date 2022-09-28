@@ -85,6 +85,8 @@ var rootCmd = &cobra.Command{
 			M3UFileName:          viper.GetString("m3u-file-name"),
 			CustomEndpoint:       viper.GetString("custom-endpoint"),
 			XtreamGenerateApiGet: viper.GetBool("xtream-api-get"),
+			GroupRegex:         viper.GetString("group-regex"),
+			ChannelRegex:       viper.GetString("channel-regex"),
 		}
 
 		if conf.AdvertisedPort == 0 {
@@ -132,6 +134,8 @@ func init() {
 	rootCmd.Flags().String("xtream-base-url", "", "Xtream-code base url e.g(http://expample.tv:8080)")
 	rootCmd.Flags().Int("m3u-cache-expiration", 1, "M3U cache expiration in hour")
 	rootCmd.Flags().BoolP("xtream-api-get", "", false, "Generate get.php from xtream API instead of get.php original endpoint")
+	rootCmd.Flags().String("group-regex", "", "Regex applied to groups for filtering")
+	rootCmd.Flags().String("channel-regex", "", "Regex applied to channel names for filtering")
 
 	if e := viper.BindPFlags(rootCmd.Flags()); e != nil {
 		log.Fatal("error binding PFlags to viper")
