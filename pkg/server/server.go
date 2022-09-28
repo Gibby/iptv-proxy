@@ -138,7 +138,6 @@ TRACKS_LOOP:
 
 		buffer.WriteString("#EXTINF:")                       // nolint: errcheck
 		buffer.WriteString(fmt.Sprintf("%d ", track.Length)) // nolint: errcheck
-
 		for i := range track.Tags {
 			if i == len(track.Tags)-1 {
 				buffer.WriteString(fmt.Sprintf("%s=%q", track.Tags[i].Name, track.Tags[i].Value)) // nolint: errcheck
