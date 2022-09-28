@@ -71,6 +71,9 @@ jobs:
         name: Build and push ghcr
         uses: docker/build-push-action@v3
         with:
+          secrets: |
+            GIT_AUTH_TOKEN=${{ secrets.GITHUB_TOKEN }}
+            GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
           context: .
           # Due to build time, only building the one currently needed.
           # If needed, we can add more platforms when requested.
