@@ -114,7 +114,7 @@ func (c *Config) xtreamGenerateM3u(ctx *gin.Context, extension string) (*m3u.Pla
 				track.Tags = append(track.Tags, m3u.Tag{Name: "tvg-logo", Value: stream.Icon})
 			}
 			if category.Name != "" {
-				track.Tags = append(track.Tags, m3u.Tag{Name: "group-title", Value: category.Name})
+				track.Tags = append(track.Tags, m3u.Tag{Name: "group-title", Value: category.Name[0]})
 			}
 
 			track.URI = fmt.Sprintf("%s/%s%s/%s/%s%s", c.XtreamBaseURL, prefix, c.XtreamUser, c.XtreamPassword, fmt.Sprint(stream.ID), extension)
@@ -365,7 +365,7 @@ func (c *Config) xtreamHlsStream(ctx *gin.Context) {
 	if len(s) != 2 {
 		ctx.AbortWithError( // nolint: errcheck
 			http.StatusInternalServerError,
-			errors.New("HSL malformed chunk"),
+			errors.New("HLS malformed chunk"),
 		)
 		return
 	}
@@ -432,7 +432,7 @@ func getHlsRedirectURL(channel string) (*url.URL, error) {
 
 	url, ok := hlsChannelsRedirectURL[channel+".m3u8"]
 	if !ok {
-		return nil, errors.New("HSL redirect url not found")
+		return nil, errors.New("HLS redirect url not found")
 	}
 
 	return &url, nil
