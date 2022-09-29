@@ -1,6 +1,6 @@
 # Iptv Proxy
 
-[![Actions Status](https://github.com/pierre-emmanuelJ/iptv-proxy/workflows/CI/badge.svg)](https://github.com/pierre-emmanuelJ/iptv-proxy/actions?query=workflow%3ACI)
+[![Actions Status](https://github.com/gibby/iptv-proxy/workflows/CI/badge.svg)](https://github.com/gibby/iptv-proxy/actions?query=workflow%3ACI)
 
 ## Description
 
@@ -52,7 +52,7 @@ iptv-proxy --m3u-url http://example.com/get.php?username=user&password=pass&type
 
 
  That's give you an m3u file on a specific endpoint `iptv.m3u` in our example
- 
+
  `http://proxyserver.com:8080/iptv.m3u?username=test&password=passwordtest`
 
 All the new routes pointing on your proxy server
@@ -94,22 +94,22 @@ http://iptvexample.net:1234/13/test/2.m3u8
              --xtream-base-url http://example.com:1234 \
              --user test \
              --password passwordtest
-             
+
 ```
 
 What Xtream proxy do
 
  - convert xtream `xtream-user ` and `xtream-password` into new `user` and `password`
  - convert `xtream-base-url` with `hostname` and `port`
- 
+
 Original xtream credentials
- 
+
  ```
  user: xtream_user
  password: xtream_password
  base-url: http://example.com:1234
  ```
- 
+
 New xtream credentials
 
  ```
@@ -117,10 +117,10 @@ New xtream credentials
  password: passwordtest
  base-url: http://proxyexample.com:8080
  ```
- 
- All xtream live, streams, vod, series... are proxyfied! 
- 
- 
+
+ All xtream live, streams, vod, series... are proxyfied!
+
+
  You can get the m3u file with the original Xtream api request:
  ```
  http://proxyexample.com:8080/get.php?username=test&password=passwordtest&type=m3u_plus&output=ts
@@ -129,7 +129,7 @@ New xtream credentials
 
 ## Installation
 
-Download lasted [release](https://github.com/pierre-emmanuelJ/iptv-proxy/releases)
+Download lasted [release](https://github.com/gibby/iptv-proxy/releases)
 
 Or
 
@@ -141,7 +141,7 @@ Or
 
  - Add an m3u URL in `docker-compose.yml` or add local file in `iptv` folder
  - `HOSTNAME` and `PORT` to expose
- - Expose same container port as the `PORT` ENV variable 
+ - Expose same container port as the `PORT` ENV variable
 
 ```Yaml
  ports:
@@ -263,4 +263,3 @@ and auth with token...
 Grab me a beer 🍻
 
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/donate?hosted_button_id=WQAAMQWJPKHUN)
-
