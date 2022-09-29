@@ -30,7 +30,6 @@ import (
 	"strings"
 	"sync"
 	"time"
-
 	"github.com/gin-gonic/gin"
 	"github.com/jamesnetherton/m3u"
 	xtreamapi "github.com/gibby/iptv-proxy/pkg/xtream-proxy"
@@ -114,7 +113,7 @@ func (c *Config) xtreamGenerateM3u(ctx *gin.Context, extension string) (*m3u.Pla
 				track.Tags = append(track.Tags, m3u.Tag{Name: "tvg-logo", Value: stream.Icon})
 			}
 			if category.Name != "" {
-				track.Tags = append(track.Tags, m3u.Tag{Name: "group-title", Value: category.Name[0]})
+				track.Tags = append(track.Tags, m3u.Tag{Name: "group-title", Value: category.Name})
 			}
 
 			track.URI = fmt.Sprintf("%s/%s%s/%s/%s%s", c.XtreamBaseURL, prefix, c.XtreamUser, c.XtreamPassword, fmt.Sprint(stream.ID), extension)
