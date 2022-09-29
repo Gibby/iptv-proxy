@@ -112,8 +112,8 @@ func (c *Config) marshallInto(into *os.File, xtream bool) error {
 	re_group := regexp.MustCompile(c.GroupRegex)
 	re_channel := regexp.MustCompile(c.ChannelRegex)
 
-TRACKS_LOOP:
-	for _, track := range c.playlist.Tracks {
+	TRACKS_LOOP:
+	for i, track := range c.playlist.Tracks {
 
 		// Group regex
 		if c.GroupRegex != "" {
