@@ -33,7 +33,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/jamesnetherton/m3u"
-	xtreamapi "github.com/pierre-emmanuelJ/iptv-proxy/pkg/xtream-proxy"
+	xtreamapi "github.com/gibby/iptv-proxy/pkg/xtream-proxy"
 	uuid "github.com/satori/go.uuid"
 )
 
