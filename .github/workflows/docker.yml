@@ -71,6 +71,9 @@ jobs:
         name: Build and push ghcr
         uses: docker/build-push-action@v3
         with:
+          secrets: |
+            GIT_AUTH_TOKEN=${{ secrets.GITHUB_TOKEN }}
+            GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
           context: .
           # Due to build time, only building the one currently needed.
           # If needed, we can add more platforms when requested.
@@ -106,3 +109,16 @@ jobs:
           provider: dockerhub
           short_description: 'Iptv-Proxy is a project to proxyfie an m3u file and to proxyfie an Xtream iptv service (client API).'
           readme_file: 'README.md'
+      -
+        name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.17
+      -
+        name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v2
+        with:
+          version: latest
+          args: release --rm-dist --skip-sign
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
