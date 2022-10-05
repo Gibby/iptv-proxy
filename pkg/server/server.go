@@ -113,6 +113,18 @@ func (c *Config) marshallInto(into *os.File, xtream bool) error {
 		buffer.WriteString("#EXTINF:")                       // nolint: errcheck
 		buffer.WriteString(fmt.Sprintf("%d ", track.Length)) // nolint: errcheck
 		for i := range track.Tags {
+
+			if(track.Tags[i].Name == "tvg-name") {
+				name = track.Tags[i].Value
+			}
+
+			if(track.Tags[i].Name == "tvg-logo") {
+				if(strings.Contains(track.Tags[i].Value, ",")) {
+					println( track.Tags[i].Value)
+					track.Tags[i].Value = ""
+				}
+			}
+
 			if i == len(track.Tags)-1 {
 				buffer.WriteString(fmt.Sprintf("%s=%q", track.Tags[i].Name, track.Tags[i].Value)) // nolint: errcheck
 				continue
@@ -127,7 +139,11 @@ func (c *Config) marshallInto(into *os.File, xtream bool) error {
 			continue
 		}
 
-		into.WriteString(fmt.Sprintf("%s, %s\n%s\n", buffer.String(), track.Name, uri)) // nolint: errcheck
+		if track.Name == "dpr_auto" || track.Name == "h_256" || strings.Contains(track.Name, "320\"") {
+			into.WriteString(fmt.Sprintf("%s, %s\n%s\n", buffer.String(), name, uri)) // nolint: errcheck
+		} else {
+			into.WriteString(fmt.Sprintf("%s, %s\n%s\n", buffer.String(), track.Name, uri)) // nolint: errcheck
+		}
 
 		filteredTrack = append(filteredTrack, track)
 	}
