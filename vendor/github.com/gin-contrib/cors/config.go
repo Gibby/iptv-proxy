@@ -12,7 +12,6 @@ type cors struct {
 	allowCredentials bool
 	allowOriginFunc  func(string) bool
 	allowOrigins     []string
-	exposeHeaders    []string
 	normalHeaders    http.Header
 	preflightHeaders http.Header
 	wildcardOrigins  [][]string
@@ -43,6 +42,12 @@ func newCors(config Config) *cors {
 		panic(err.Error())
 	}
 
+	for _, origin := range config.AllowOrigins {
+		if origin == "*" {
+			config.AllowAllOrigins = true
+		}
+	}
+
 	return &cors{
 		allowOriginFunc:  config.AllowOriginFunc,
 		allowAllOrigins:  config.AllowAllOrigins,
@@ -60,7 +65,7 @@ func (cors *cors) applyCors(c *gin.Context) {
 		// request is not a CORS request
 		return
 	}
-	host := c.Request.Header.Get("Host")
+	host := c.Request.Host
 
 	if origin == "http://"+host || origin == "https://"+host {
 		// request is not a CORS request but have origin header.
